@@ -12,7 +12,7 @@
 #SBATCH --output=/home/qfournie/logs/%x-%j
 
 # ARGS
-#SBATCH --array=1-31:2
+#SBATCH --array=1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,36,43,50,57,64,71,78,85,92,99
 
 # LOAD MODULES
 module load python/3.5
