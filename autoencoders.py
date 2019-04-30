@@ -79,7 +79,10 @@ class DAE:
     def fit(self, x_train, y_train):
         x_train, x_valid = model_selection.train_test_split(
             x_train,
-            test_size=max(10, 10 * int(0.01 * x_train.shape[0])),
+            test_size=int(
+                0.1 * x_train.shape[0] // self.batch_size * self.batch_size),
+            train_size=int(
+                0.9 * x_train.shape[0] // self.batch_size * self.batch_size),
             stratify=y_train)
 
         self.autoencoder.fit(
@@ -186,9 +189,11 @@ class VAE:
     def fit(self, x_train, y_train):
         x_train, x_valid = model_selection.train_test_split(
             x_train,
-            test_size=max(10, 10 * int(0.01 * x_train.shape[0])),
+            test_size=int(
+                0.1 * x_train.shape[0] // self.batch_size * self.batch_size),
+            train_size=int(
+                0.9 * x_train.shape[0] // self.batch_size * self.batch_size),
             stratify=y_train)
-
         self.autoencoder.fit(
             x_train,
             x_train,

@@ -35,6 +35,19 @@ args = get_args()
 ISOMAP_REDUCED_SIZE = 10000
 
 
+def load_uji(path):
+    with open(path) as file:
+        reader = csv.reader(file, delimiter=',')
+        # drop header
+        next(reader)
+        data = np.asarray([[float(value) for value in row] for row in reader])
+        x = data[:, 0:520]
+        # value 100 corresponds to no signal
+        x = np.where(x == 100, -110, x)
+        _, label = np.unique(data[:, 522:524], return_inverse=True, axis=0)
+    return x, label
+
+
 def create_methods(latent_dim, input_shape, batch_size, methods_name):
     '''Create a list of methods to project the data. Needs to be fitted
 

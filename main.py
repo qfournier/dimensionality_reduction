@@ -9,9 +9,12 @@ from functions import visualization
 from functions import plot_dimesion
 from functions import plot_trainsize
 from functions import baseline
+from functions import load_uji
 from arguments import get_args
 
 from autoencoders import DAE, VAE
+
+from sklearn.preprocessing import StandardScaler
 
 from keras.datasets import mnist, fashion_mnist, cifar10
 from keras.utils import plot_model
@@ -38,10 +41,17 @@ if __name__ == '__main__':
 
     elif args.dataset == 'cifar':
         (x_train, y_train), (x_test, y_test) = cifar10.load_data()
+    elif args.dataset == 'uji':
+        x_train, y_train = load_uji("data/train.csv")
+        x_test, y_test = load_uji("data/test.csv")
 
     if args.dataset == None:
         print('WARNING:no dataset selected')
-
+    elif args.dataset == 'uji':
+        # Standardize values (0 mean and unit variance)
+        scaler = StandardScaler()
+        x_train = scaler.fit_transform(x_train)
+        x_test = scaler.transform(x_test)
     else:
         # Normalize values between 0 and 1
         x_train = (x_train.astype('float32')) / 255.

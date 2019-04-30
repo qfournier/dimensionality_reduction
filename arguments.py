@@ -8,7 +8,7 @@ def get_args():
         '--dataset',
         dest='dataset',
         type=str.lower,
-        choices=['mnist', 'fashion', 'cifar'],
+        choices=['mnist', 'fashion', 'cifar', 'uji'],
         default=None,
         help='Dataset')
     parser.add_argument(
